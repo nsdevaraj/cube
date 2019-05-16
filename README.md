@@ -31,7 +31,7 @@ Till Yellow R U R' U R U U R' U
 
 Stage4
 
-Corner.  r'Fr'B2Rf'r'B2R2
+Corner. R' F R' B2 R F' R' B2 R2 
 
 
 Right.  F2 u' Lr'F2l'R u'F2
