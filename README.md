@@ -22,10 +22,10 @@ U' L' U L U F U' F'
 
 Stage3
 
-Till Cross FRUr'u'f'
+Till Cross F R U R' U' F'
 
 
-Till Yellow RUr'URU2r'U
+Till Yellow R U R' U R U U R' U
 
 
 
