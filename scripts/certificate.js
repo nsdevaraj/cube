@@ -86,8 +86,8 @@ function zeroPad(val, digits) {
 }
 var dataStore = {
   'msgs': {
-    'Certificate Moves': 'Moves',
-    'Certificate Time': 'Time',
+    'Certificate Moves': 'Well Done',
+    'Certificate Time': 'Try Again',
     'Certificate Title': 'Cube Solved',
     'Directions 1': 'Swipe outside the cube to rotate it.',
     'Directions 2': 'Swipe inside to twist the cube.',
@@ -172,7 +172,7 @@ function setupTextBoxes() {
       dataStore['msgs']['Certificate Title']);
   }
   var moves = cube.moveCounter;
-  moves = zeroPad(moves, 4);
+  moves = ''//zeroPad(moves, 4);
   certMovesNumber = new TextBox(cubeObject, 'certMovesNumber', moves);
   certMovesHeader = new TextBox(cubeObject, 'certMovesHeader',
     dataStore['msgs']['Certificate Moves']);
@@ -210,7 +210,7 @@ function setupTextBoxes() {
   var timeSec = zeroPad(Math.floor(elapsedTime % 60), 2);
   var timeMin = zeroPad(Math.floor(elapsedTime / 60), 2);
   certTimeNumber =
-    new TextBox(cubeObject, 'certTimeNumber', timeMin + ':' + timeSec);
+    new TextBox(cubeObject, 'certTimeNumber', '')//timeMin + ':' + timeSec);
   certTimeHeader = new TextBox(cubeObject, 'certTimeHeader',
     dataStore['msgs']['Certificate Time']);
   certLarryName = new TextBox(cubeObject, 'certLarryName', 'Lawrence Page');
