@@ -3,9 +3,9 @@ var startTime = 0;
 var isMobile = dataStore['fpdoodle'] == '1';
 var scopedCheckQueue;
 var ua = navigator.userAgent,
-    isIe = ua.indexOf('MSIE') > -1 || ua.indexOf('Trident') > -1;
+  isIe = ua.indexOf('MSIE') > -1 || ua.indexOf('Trident') > -1;
 var useLockedControls = true,
-    controls = useLockedControls ? ERNO.Locked : ERNO.Freeform;
+  controls = useLockedControls ? ERNO.Locked : ERNO.Freeform;
 window.cube = new ERNO.Cube({
   hideInvisibleFaces: isMobile,
   controls: controls,
@@ -18,17 +18,17 @@ if (isMobile) {
   document.body.classList.add('mobile');
   document.getElementById('bg').classList.add('graydient');
 }
-cube.addEventListener('click', function(evt) {
+cube.addEventListener('click', function (evt) {
   if (!cube.mouseControlsEnabled) {
     return;
   }
   var cubelet = evt.detail.cubelet,
-      face = cubelet[evt.detail.face.toLowerCase()],
-      axis = new THREE.Vector3(),
-      exclude = new THREE.Vector3(1, 0, 0),
-      UP = new THREE.Vector3(0, 1, 0),
-      normal = ERNO.Direction.getDirectionByName(face.normal).normal.clone(),
-      slice;
+    face = cubelet[evt.detail.face.toLowerCase()],
+    axis = new THREE.Vector3(),
+    exclude = new THREE.Vector3(1, 0, 0),
+    UP = new THREE.Vector3(0, 1, 0),
+    normal = ERNO.Direction.getDirectionByName(face.normal).normal.clone(),
+    slice;
   normal.x = Math.abs(normal.x);
   normal.y = Math.abs(normal.y);
   normal.z = Math.abs(normal.z);
@@ -40,7 +40,7 @@ cube.addEventListener('click', function(evt) {
     axis.y = Math.abs(axis.y);
     axis.z = Math.abs(axis.z);
     if (slice.cubelets.indexOf(cubelet) !== -1 &&
-        axis.equals(UP)) {
+      axis.equals(UP)) {
       break;
     }
   }
@@ -77,7 +77,7 @@ ERNO.GREEN.hex = '#009D54';
 ERNO.ORANGE.hex = '#FF6C00';
 ERNO.YELLOW.hex = '#FDCC09';
 ERNO.COLORLESS.hex = '#000000';
-var Plane = function(cube, name, className) {
+var Plane = function (cube, name, className) {
   THREE.Object3D.call(this);
   cube.object3D.add(this);
   this.domElement = document.createElement('div');
@@ -91,9 +91,9 @@ Plane.prototype = Object.create(THREE.Object3D.prototype);
 if (!isIe) {
   var shadow = new Plane(cube, 'shadow', 'shadow');
   shadow.rotation.set(
-      (90).degreesToRadians(),
-      (0).degreesToRadians(),
-      (0).degreesToRadians()
+    (90).degreesToRadians(),
+    (0).degreesToRadians(),
+    (0).degreesToRadians()
   );
   shadow.position.y = -300;
   function updateShadow() {
@@ -105,14 +105,14 @@ if (!isIe) {
 window.setTimeout(setupLogo, 100);
 function setupLogo() {
   cube.rotation.set(
-      (25).degreesToRadians(),
-      (-45).degreesToRadians(),
-      (0).degreesToRadians()
+    (25).degreesToRadians(),
+    (-45).degreesToRadians(),
+    (0).degreesToRadians()
   );
   cube.typeCubeletIds = new Array(8, 17, 16, 23, 20, 12, 21, 25);
   cube.typeCubelets = new ERNO.Group();
-  cube.cubelets.forEach(function(cubelet, index) {
-    cube.typeCubeletIds.forEach(function(id) {
+  cube.cubelets.forEach(function (cubelet, index) {
+    cube.typeCubeletIds.forEach(function (id) {
       if (cubelet.id == id) {
         cube.typeCubelets.add(cubelet);
         cubelet.logo = true;
@@ -126,7 +126,7 @@ function setupLogo() {
   cube.twistDuration = 0;
   //initial set
   var LOGO_SEQUENCE = 'zzxLFFRDuFLUrl';
- 
+
 
   cube.twistCountDown = LOGO_SEQUENCE.length;
   scopedCheckQueue = checkQueue.bind(this, startScrambleAnimation);
@@ -139,7 +139,7 @@ function setupLogo() {
     }
   }
   var prefix = '.cubeletId-';
-  cube.cubelets.forEach(function(cubelet, index) {
+  cube.cubelets.forEach(function (cubelet, index) {
     if (cubelet.logo != true) {
       setWhiteBg(prefix + cubelet.id + ' .sticker');
     }
@@ -155,9 +155,15 @@ function setupLogo() {
     }
   });
   setTimeout(scrambleCubeInit, 1000);
+  setTimeout(clearMessage, 1100);
+  setTimeout(clearMessage, 1800);
 }
-function scrambleCubeInit(){
-	scrambleCube('Dd')
+function scrambleCubeInit() {
+  scrambleCube('Dd'); 
+}
+
+function clearMessage() {
+  document.getElementById('moves').innerHTML = '';
 }
 function enableDeviceMotion() {
   if (!motion) {
@@ -184,11 +190,11 @@ function initiateAudio() {
     'CubeDoodle08'
   ];
   cube.audio = new Html5Audio(cube.audioList,
-      'examples/doodle-iframe/media/SingleSounds');
+    'examples/doodle-iframe/media/SingleSounds');
   cube.audio.loadAll();
-  cube.addEventListener('onTwistComplete', function(e) {
+  cube.addEventListener('onTwistComplete', function (e) {
     cube.audio.play(cube.audioList[
-        Math.floor(Math.random() * (cube.audioList.length - 1))]);
+      Math.floor(Math.random() * (cube.audioList.length - 1))]);
   });
 }
 function startInteractiveCube() {
@@ -199,16 +205,16 @@ function startInteractiveCube() {
   startTime = (new Date()).getTime();
   cube.twistDuration = 500;
   cube.moveCounter = 0;
-  cube.addEventListener('onTwistComplete', function(e) {
+  cube.addEventListener('onTwistComplete', function (e) {
     if (cube.undoing) {
       cube.moveCounter++;
     }
     if (moveCounter) {
       moveCounter.innerText = moveCounter.textContent = cube.moveCounter;
     }
-    postParentMessage({'moves': cube.moveCounter});
+    postParentMessage({ 'moves': cube.moveCounter });
     if (cube.isSolved()) {
-      setTimeout(function() {
+      setTimeout(function () {
         cube.hideInvisibleFaces = false;
         cube.showIntroverts();
         if (shadow && shadow.domElement) {
@@ -217,7 +223,7 @@ function startInteractiveCube() {
         if (!sentCertificate) {
           sentCertificate = true;
           doCertificate();
-          postParentMessage({'certificate': 1});
+          postParentMessage({ 'certificate': 1 });
         }
       }, 1000);
     }
@@ -228,7 +234,7 @@ function startInteractiveCube() {
     buttonpanel.style.display = 'none';
     moveCounter.style.display = 'none';
   }
-  postParentMessage({'controls': 1});
+  postParentMessage({ 'controls': 1 });
   cube.mouseControlsEnabled = true;
   cube.keyboardControlsEnabled = true;
 }
@@ -238,7 +244,7 @@ function checkQueue(callback) {
     callback();
   }
 }
-window.addEventListener('message', function(e) {
+window.addEventListener('message', function (e) {
   var data = e.data;
   if (e.origin != dataStore.origin || data.session != dataStore.session) {
     return;
@@ -249,8 +255,8 @@ window.addEventListener('message', function(e) {
     var upgradeText = document.querySelector('#upgradeText div.upgradetext');
     if (upgradeText && update['msgs']) {
       upgradeText.textContent = upgradeText.innerText =
-          update['msgs']['Error Version 2'] ||
-          dataStore['msgs']['Error Version 2'] || '';
+        update['msgs']['Error Version 2'] ||
+        dataStore['msgs']['Error Version 2'] || '';
     }
   } else if (data['help']) {
     handleHelpClick();
@@ -263,37 +269,37 @@ function postParentMessage(data) {
   window.parent && window.parent.postMessage(data, dataStore['origin'] || '*');
 }
 function startScrambleAnimation() {
-  postParentMessage({'transition': 1});
+  postParentMessage({ 'transition': 1 });
   cube.show();
 }
 function scrambleCube(moves) {
   $("#movesdisplay").find('h1').empty()
   new TWEEN.Tween(cube.position)
-  .to({
-        x: 0,
-        y: 0,
-        z: 0
-      }, 3000)
-  .easing(TWEEN.Easing.Quartic.InOut)
-  .start(cube.time);
+    .to({
+      x: 0,
+      y: 0,
+      z: 0
+    }, 3000)
+    .easing(TWEEN.Easing.Quartic.InOut)
+    .start(cube.time);
   new TWEEN.Tween(cube.rotation)
-  .to({
-        x: (25).degreesToRadians(),
-        y: (25).degreesToRadians(),
-        z: 0
-      }, 3000)
-  .easing(TWEEN.Easing.Quartic.InOut)
-  .start(cube.time);
+    .to({
+      x: (25).degreesToRadians(),
+      y: (25).degreesToRadians(),
+      z: 0
+    }, 3000)
+    .easing(TWEEN.Easing.Quartic.InOut)
+    .start(cube.time);
   cube.twistDuration = 450; // make it lower value for faster
   var WCA_SCRAMBLE_SHORT = moves;//'ddurrdllrBffDUbffdurfdUbll';
   cube.twistCountDown =
-      WCA_SCRAMBLE_SHORT.length + cube.twistQueue.history.length;
+    WCA_SCRAMBLE_SHORT.length + cube.twistQueue.history.length;
   cube.twist(WCA_SCRAMBLE_SHORT);
   scopedCheckQueue = checkQueue.bind(this, startInteractiveCube);
   cube.addEventListener('onTwistComplete', scopedCheckQueue);
 
-  cube.cubelets.forEach(function(cubelet, indexCubelets) {
-    cubelet.faces.forEach(function(face, indexFaces) {
+  cube.cubelets.forEach(function (cubelet, indexCubelets) {
+    cubelet.faces.forEach(function (face, indexFaces) {
       var sticker = face.element.getElementsByClassName('sticker')[0];
       if (sticker) {
         var colorNow = sticker.style.backgroundColor;
@@ -306,18 +312,18 @@ function scrambleCube(moves) {
           };
           var colorTarget = _.hexToRgb(face.color.hex);
           new TWEEN.Tween(colorNow)
-          .to({
-                r: colorTarget.r,
-                g: colorTarget.g,
-                b: colorTarget.b
-              }, 500)
-          .onUpdate(function() {
-                sticker.style.backgroundColor = 'rgb(' +
-                    colorNow.r.round() + ',' +
-                    colorNow.g.round() + ',' +
-                    colorNow.b.round() + ')';
-              })
-          .start(cube.time);
+            .to({
+              r: colorTarget.r,
+              g: colorTarget.g,
+              b: colorTarget.b
+            }, 500)
+            .onUpdate(function () {
+              sticker.style.backgroundColor = 'rgb(' +
+                colorNow.r.round() + ',' +
+                colorNow.g.round() + ',' +
+                colorNow.b.round() + ')';
+            })
+            .start(cube.time);
         }
       }
     });
@@ -373,32 +379,32 @@ function getShortlinkForSharing() {
   var shortlink = dataStore['shortlink'] || '//google.com/doodles';
   return shortlink.replace(/.*\/\//, 'http://');
 }
-addListener(shareGPlus, function(e) {
+addListener(shareGPlus, function (e) {
   window.open('https://plus.google.com/share?url=' +
-      encodeURIComponent(getShortlinkForSharing()));
+    encodeURIComponent(getShortlinkForSharing()));
 });
-addListener(shareFacebook, function(e) {
+addListener(shareFacebook, function (e) {
   window.open('http://www.facebook.com/sharer.php?u=' +
-      encodeURIComponent(getShortlinkForSharing()));
+    encodeURIComponent(getShortlinkForSharing()));
 });
-addListener(shareTwitter, function(e) {
+addListener(shareTwitter, function (e) {
   window.open('http://twitter.com/intent/tweet?status=' +
-      encodeURIComponent(dataStore['msgs']['Share Message'] + ' ' +
+    encodeURIComponent(dataStore['msgs']['Share Message'] + ' ' +
       getShortlinkForSharing()));
 });
-addListener(shareEmail, function(e) {
+addListener(shareEmail, function (e) {
   window.open('mailto:?subject=' +
-      encodeURIComponent(dataStore['msgs']['Share Message']) +
-      '&body=' + encodeURIComponent(getShortlinkForSharing()));
+    encodeURIComponent(dataStore['msgs']['Share Message']) +
+    '&body=' + encodeURIComponent(getShortlinkForSharing()));
 });
-addListener(searchButton, function(e) {
-  postParentMessage({'search': 1});
+addListener(searchButton, function (e) {
+  postParentMessage({ 'search': 1 });
 });
 function updateHelp() {
   helpText.textContent = helpText.innerText =
-      dataStore['msgs']['Directions ' + helpIndex];
+    dataStore['msgs']['Directions ' + helpIndex];
   helpNext.textContent = helpNext.innerText =
-      dataStore['msgs']['Directions UI ' + (helpIndex < 2 ? 1 : 2)];
+    dataStore['msgs']['Directions UI ' + (helpIndex < 2 ? 1 : 2)];
   if (helpIndex == 1) {
     helpImage.classList.remove('two');
     helpImage.classList.add('one')
@@ -420,7 +426,7 @@ function handleHelpClick(e) {
   shareBubble.style.opacity = '0';
 }
 helpBubble.dir = dataStore['dir'];
-addListener(helpBubble, function(e) {
+addListener(helpBubble, function (e) {
   helpIndex++;
   if (helpIndex > 2) {
     helpBubble.style.display = 'none'
@@ -434,17 +440,17 @@ addListener(helpBubble, function(e) {
   return false;
 });
 addListener(helpButton, handleHelpClick);
-addListener(container, function(e) {
+addListener(container, function (e) {
   helpBubble.style.display = 'none';
   helpBubble.style.pointerEvents = 'none';
   shareBubble.style.opacity = '0';
 });
-addListener(shareButton, function(e) {
+addListener(shareButton, function (e) {
   shareBubble.style.opacity = shareBubble.style.opacity == '0' ? '1' : '0';
   helpBubble.style.display = 'none';
   shareShortLink.value = dataStore['shortlink'].replace(/^\/\//, '');
 });
-shareShortLink.addEventListener('mouseup', function(e) {
+shareShortLink.addEventListener('mouseup', function (e) {
   e.preventDefault();
   shareShortLink.select();
 });
