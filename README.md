@@ -39,5 +39,4 @@ Right.  F2 u' Lr'F2l'R u'F2
 
 Left.  F2 U Lr'F2l'R UF2
 
-![keys](https://user-images.githubusercontent.com/274062/132938168-513dc531-2315-41ac-911c-70e2a3db8c5e.png)
-
+![keys__01](https://user-images.githubusercontent.com/274062/132938224-8eedac51-6290-4b96-b0d6-66c4669e7766.png)
